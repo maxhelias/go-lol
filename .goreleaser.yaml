@@ -1,0 +1,44 @@
+project_name: go-lol
+
+before:
+  hooks:
+    - make clean
+    - go mod download
+    - golangci-lint run
+
+gomod:
+  proxy: true
+
+builds:
+  - id: go-lol
+    main: ./cmd/go-lol
+    binary: go-lol
+    goos:
+      - darwin
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
+    env:
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+
+release:
+  github:
+  draft: true
+  prerelease: true
+
+checksum:
+  name_template: 'checksums.txt'
+
+source:
+  enabled: true
+
+changelog:
+  skip: false
+  sort: asc
+  use: github-native
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
