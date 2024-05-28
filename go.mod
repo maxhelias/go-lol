@@ -2,7 +2,7 @@ module github.com/maxhelias/golol
 
 go 1.22.1
 
-require github.com/shirou/gopsutil/v3 v3.24.3
+require github.com/shirou/gopsutil/v3 v3.24.4
 
 require (
 	github.com/go-ole/go-ole v1.3.0 // indirect
