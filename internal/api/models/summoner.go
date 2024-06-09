@@ -1,11 +1,4 @@
-package api
-
-import (
-	"encoding/json"
-	"fmt"
-
-	"github.com/maxhelias/golol/pkg/client"
-)
+package models
 
 type (
 	CurrSummoner struct {
@@ -30,20 +23,3 @@ type (
 		XpUntilNextLevel int   `json:"xpUntilNextLevel"`
 	}
 )
-
-func GetCurrSummoner() (*CurrSummoner, error) {
-	bts, err := client.Get("/lol-summoner/v1/current-summoner")
-	if err != nil {
-		fmt.Println(err)
-
-		return nil, err
-	}
-
-	data := &CurrSummoner{}
-	err = json.Unmarshal(bts, data)
-	if nil != err {
-		return nil, err
-	}
-
-	return data, nil
-}

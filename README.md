@@ -5,7 +5,8 @@ https://github.com/CommunityDragon/awesome-league
 
 # TODO
 
-1. Tests
-2. Intégration CI/CD
+- Utilisation des WebStockets LCU
+- Tests
+- Intégration CI/CD
     - Test
     - Release

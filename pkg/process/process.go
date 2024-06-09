@@ -2,7 +2,6 @@ package process
 
 import (
 	"errors"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -16,10 +15,9 @@ const (
 	PortRegex      = `--app-port=(\d+)`
 )
 
-type LcuProcessNotFoundError struct {
-}
+type LcuProcessNotFoundError struct{}
 
-func (e *LcuProcessNotFoundError) Error() string {
+func (e LcuProcessNotFoundError) Error() string {
 	return `no process found with the name ` + LeagueClientUx
 }
 
@@ -34,7 +32,7 @@ type LcuConnectInfo struct {
 func FindLcuConnectInfo() (*LcuConnectInfo, error) {
 	processes, err := process.Processes()
 	if err != nil {
-		return nil, err // TODO : Log
+		return nil, err
 	}
 
 	for _, p := range processes {
@@ -65,7 +63,6 @@ func FindLcuConnectInfo() (*LcuConnectInfo, error) {
 		}
 	}
 
-	// TODO : Log
 	return nil, &LcuProcessNotFoundError{}
 }
 
@@ -76,7 +73,7 @@ func extractAuthToken(cmdLine string) (string, error) {
 func extractPort(cmdLine string) (int, error) {
 	str, err := extractRegex(cmdLine, PortRegex)
 	if nil != err {
-		log.Println(err) // TODO : Log
+		return 0, err
 	}
 
 	num, err := strconv.Atoi(str)

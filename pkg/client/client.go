@@ -23,7 +23,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
-func NewClient(port int, token string) {
+func NewClient(port int, token string, LcuCertPath string) *Client {
 	lcu = &Client{
 		Port:      port,
 		AuthToken: token,
@@ -31,7 +31,7 @@ func NewClient(port int, token string) {
 	}
 
 	// Load PEM
-	certPEM, err := os.ReadFile("config/lcu.pem")
+	certPEM, err := os.ReadFile(LcuCertPath)
 	if err != nil {
 		panic(err)
 	}
@@ -48,6 +48,8 @@ func NewClient(port int, token string) {
 			},
 		},
 	}
+
+	return lcu
 }
 
 func Get(url string) ([]byte, error) {
@@ -68,7 +70,7 @@ func req(method string, url string, data interface{}) ([]byte, error) {
 	if data != nil {
 		bts, err := json.Marshal(data)
 		if err != nil {
-			return nil, err // TODO : Log
+			return nil, err
 		}
 		body = bytes.NewReader(bts)
 	}
@@ -82,12 +84,12 @@ func req(method string, url string, data interface{}) ([]byte, error) {
 	if err != nil {
 		fmt.Println(err)
 
-		return nil, err // TODO : Log
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("status code: %d", resp.StatusCode) // TODO : Log
+		return nil, fmt.Errorf("status code: %d", resp.StatusCode)
 	}
 
 	return io.ReadAll(resp.Body)
