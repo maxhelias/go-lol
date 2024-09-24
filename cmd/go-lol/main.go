@@ -1,27 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/maxhelias/golol/internal/app"
 )
 
 func main() {
-	app, err := app.New()
+	app, err := app.New(app.WithDebug())
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 
 		return
 	}
 
-	app.Run()
-
-	/*data, err := endpoints.GetCurrSummoner()
-	if err != nil {
-		fmt.Println(err)
-
-		return
+	if err = app.Run(); err != nil {
+		log.Fatal(err)
 	}
-
-	fmt.Println(data)*/
 }

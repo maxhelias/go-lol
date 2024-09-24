@@ -1,3 +1,7 @@
+# GoLoL
+
+Entrainement Go pour le moment
+
 # Awesome
 
 https://github.com/CommunityDragon/awesome-league
@@ -5,8 +9,5 @@ https://github.com/CommunityDragon/awesome-league
 
 # TODO
 
-- Utilisation des WebStockets LCU
-- Tests
-- Intégration CI/CD
-    - Test
-    - Release
+- Gestion concurrente de "config.Context"
+- Utilisation des WebStockets LCU pour catch les events
