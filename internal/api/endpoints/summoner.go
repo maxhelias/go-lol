@@ -16,6 +16,16 @@ func GetCurrSummoner() (*models.CurrSummoner, error) {
 		return nil, err
 	}
 
+	var formattedJSON map[string]interface{}
+	err = json.Unmarshal(bts, &formattedJSON)
+	if err != nil {
+		fmt.Println("Erreur lors du parsing JSON:", err)
+	}
+
+	// Affichage JSON formaté dans le terminal
+	prettyJSON, _ := json.MarshalIndent(formattedJSON, "", "  ")
+	fmt.Println(string(prettyJSON))
+
 	data := &models.CurrSummoner{}
 	err = json.Unmarshal(bts, data)
 	if nil != err {
